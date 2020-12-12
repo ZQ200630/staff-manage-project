@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zq.staffmanageproject.mapper.ManagerMapper">
+
+    <resultMap id="BaseResultMap" type="com.zq.staffmanageproject.entity.Manager">
+        <result column="id" jdbcType="INTEGER" property="id" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="age" jdbcType="INTEGER" property="age" />
+        <result column="level" jdbcType="VARCHAR" property="level" />
+        <result column="password" jdbcType="VARCHAR" property="password" />
+        <result column="salary" jdbcType="DOUBLE" property="salary" />
+    </resultMap>
+
+    <select id="getManagerById" parameterType="int" resultType="com.zq.staffmanageproject.entity.Manager">
+        select * from manager where id = #{id}
+    </select>
+
+    <select id="getManagerByName" parameterType="String" resultType="com.zq.staffmanageproject.entity.Manager">
+        select * from manager where name = #{name}
+    </select>
+
+    <select id="getAll" resultType="com.zq.staffmanageproject.entity.Manager">
+        select * from manager
+    </select>
+
+    <insert id="insertManagerToStaff" parameterType="com.zq.staffmanageproject.entity.Manager">
+        insert into staff(name, level) values(#{name}, "Manager");
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+
+    <insert id="insertManagerToManager" parameterType="com.zq.staffmanageproject.entity.Manager" >
+        insert into manager(id, name, age, level, password, salary) values(#{id}, #{name},#{age}, #{level}, #{password}, #{salary});
+    </insert>
+
+    <update id="updateManager" parameterType="com.zq.staffmanageproject.entity.Manager">
+        UPDATE staff SET name = #{name} where id = #{id};
+        UPDATE manager SET name=#{name}, age=#{age}, password=#{password}, salary=#{salary}  WHERE id = #{id} ;
+    </update>
+
+    <update id="updateManagerToSalesman" parameterType="com.zq.staffmanageproject.entity.Manager">
+        delete from manager where id = #{id};
+        update staff SET name = #{name}, level = #{level} where id = #{id};
+        insert into salesman(id, name, age, level, password, monthlySales, salary) values(#{id}, #{name}, #{age}, #{level}, #{password}, 0, 0);
+    </update>
+
+    <update id="updateManagerToTechnician" parameterType="com.zq.staffmanageproject.entity.Technician">
+        delete from manager where id = #{id};
+        update staff SET name = #{name}, level = #{level} where id = #{id};
+        insert into technician(id, name, age, level, password, hours, salary) values(#{id}, #{name}, #{age}, #{level}, #{password}, 0, 0);
+    </update>
+
+    <delete id="deleteManagerById" parameterType="int" >
+        delete from manager where id = #{id};
+        delete from staff where id = #{id};
+    </delete>
+
+</mapper>
