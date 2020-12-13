@@ -5,6 +5,8 @@ import com.zq.staffmanageproject.mapper.LevelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class LevelService {
     @Autowired
@@ -14,7 +16,7 @@ public class LevelService {
         return levelMapper.getLevelById(id);
     }
 
-    public Level getLevelByName(String name) {
+    public List<Level> getLevelByName(String name) {
         return levelMapper.getLevelByName(name);
     }
 }

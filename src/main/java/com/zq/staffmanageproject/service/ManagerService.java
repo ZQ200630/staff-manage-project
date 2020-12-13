@@ -16,7 +16,7 @@ public class ManagerService {
         return managerMapper.getManagerById(id);
     }
 
-    public Manager getManagerByName(String name) {
+    public List<Manager> getManagerByName(String name) {
         return managerMapper.getManagerByName(name);
     }
 

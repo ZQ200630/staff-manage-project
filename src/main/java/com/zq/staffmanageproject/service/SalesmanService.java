@@ -16,7 +16,7 @@ public class SalesmanService {
         return salesmanMapper.getSalesmanById(id);
     }
 
-    public Salesman getSalesmanByName(String name) {
+    public List<Salesman> getSalesmanByName(String name) {
         return salesmanMapper.getSalesmanByName(name);
     }
 

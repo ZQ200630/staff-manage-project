@@ -9,7 +9,7 @@ import java.util.List;
 public interface SalesmanMapper {
     Salesman getSalesmanById(int id);
 
-    Salesman getSalesmanByName(String name);
+    List<Salesman> getSalesmanByName(String name);
 
     List<Salesman> getAll();
 

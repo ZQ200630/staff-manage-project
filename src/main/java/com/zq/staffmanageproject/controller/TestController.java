@@ -48,19 +48,12 @@ public class TestController {
     }
 
     @GetMapping(value = "/GetStaffByName/{name}")
-    public Staff getStaffByName(@PathVariable("name") String name) {
-        switch (levelService.getLevelByName(name)) {
-            case Manager -> {
-                return managerService.getManagerByName(name);
-            }
-            case Salesman -> {
-                return salesmanService.getSalesmanByName(name);
-            }
-            case Technician -> {
-                return technicianService.getTechnicianByName(name);
-            }
-        }
-        return null;
+    public List<Staff> getStaffByName(@PathVariable("name") String name) {
+        List<Staff> staffList = new ArrayList<Staff>();
+        staffList.addAll(managerService.getManagerByName(name));
+        staffList.addAll(salesmanService.getSalesmanByName(name));
+        staffList.addAll(technicianService.getTechnicianByName(name));
+        return staffList;
     }
     
     @GetMapping(value = "/GetStaffsByGroup/{groupName}")

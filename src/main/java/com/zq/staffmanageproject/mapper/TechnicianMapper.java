@@ -9,7 +9,7 @@ import java.util.List;
 public interface TechnicianMapper {
     Technician getTechnicianById(int id);
 
-    Technician getTechnicianByName(String name);
+    List<Technician> getTechnicianByName(String name);
 
     List<Technician> getAll();
 
